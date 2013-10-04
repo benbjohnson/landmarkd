@@ -1,12 +1,10 @@
 package server
 
 import (
-	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
-	"io"
 	"log"
 	"net/http"
-	"time"
 )
 
 type Server struct {
@@ -22,9 +20,9 @@ func New() *Server {
 }
 
 // Starts the server.
-func (s *Server) ListenAndServe() error {
+func (s *Server) ListenAndServe(port int) error {
 	s.httpServer = &http.Server{
-		Addr:    fmt.Sprintf(":%d", DefaultPort),
+		Addr:    fmt.Sprintf(":%d", port),
 		Handler: s.router,
 	}
 	s.router.HandleFunc("/track", s.trackHandler).Methods("GET")
@@ -35,9 +33,8 @@ func (s *Server) ListenAndServe() error {
 }
 
 // Tracks a single event to a project.
-func (s *Server) trackHandler(w http.ResponseWriter, r *http.Request) error {
+func (s *Server) trackHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Parse query parameters.
 	// TODO: Lookup project by API Key.
 	// TODO: Send event against project.
-	return nil
 }

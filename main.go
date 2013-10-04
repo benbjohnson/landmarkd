@@ -2,8 +2,11 @@ package main
 
 import (
 	"flag"
+	"io/ioutil"
 	"log"
+	"os"
 	"runtime"
+	"strconv"
 
 	. "github.com/skylandlabs/landmarkd/config"
 	"github.com/skylandlabs/landmarkd/server"
@@ -30,8 +33,8 @@ func main() {
 	writePidFile()
 
 	// Run server.
-	s := server.New(config.Port)
-	log.Fatal(s.ListenAndServe(c))
+	s := server.New()
+	log.Fatal(s.ListenAndServe(config.Port))
 }
 
 func writePidFile() {
